@@ -2,9 +2,7 @@ function compressData(big, smallType, delta)
   # Initial arrays
   small1 = smallType[]
   small2 = smallType[]
-  indexArr = UInt64[]
-
-
+  indexArr = Int64[]
 
   # Initial elements
   push!(small2, big[1] - smallType(big[1]))
@@ -96,9 +94,30 @@ verify(d1, f1, f2, fMapArr, doubleType, deltaMethod)
 println(length(f1))
 println(length(f2))
 
-deltaMethod = false
-h1, h2, hMapArr = compressData(f1, halfType, deltaMethod)
-verify(f1, h1, h2, hMapArr, singleType, deltaMethod)
+#deltaMethod = false
+#h1, h2, hMapArr = compressData(f1, halfType, deltaMethod)
+#verify(f1, h1, h2, hMapArr, singleType, deltaMethod)
 
-println(length(h1))
-println(length(h2))
+#println(length(h1))
+#println(length(h2))
+
+function printVal(value, precisionType)
+  value = convert(precisionType, value)
+  @printf("%.20hf\n", value)
+end
+
+function printVals(values1, values2, indexArr, precisionType)
+  j = 1
+  for i = 1:length(values1)
+    if j != length(indexArr) && i == indexArr[j + 1]
+      j += 1
+    end
+    #print(i)
+    #print(" ")
+    #println(j)
+    value1 = convert(precisionType, values1[j])
+    value2 = convert(precisionType, values2[i])
+    @printf("%.20hf %.20hf\n", value1, value2)
+
+  end
+end
